@@ -6,10 +6,6 @@
 
 
     Backbone.NutriRouter = Backbone.Router.extend({
-        initialize: function() {
-            this.el = document.querySelector('.container');
-            Backbone.history.start();
-        },
         routes: {
             '*default': 'home'
         },
@@ -22,6 +18,11 @@
             }, false);
 
         home: function() {
+
+        },
+        initialize: function() {
+            this.el = document.querySelector('.container');
+            Backbone.history.start();
         }
     });
 
