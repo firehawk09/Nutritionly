@@ -559,5 +559,10 @@
 img {max-width:100%;}
 
 body {
+    .container{
+        #map {
+            height: 180px;
+        }
+    }
     transition: opacity .25s ease;
 }
