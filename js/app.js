@@ -28,6 +28,7 @@ function app(){
         // other stuff
         {url: "./bower_components/pace/pace.min.js"},
         {url: "./js/TemplateView.js"},
+        {url: "./js/leafLet.js"},
         {url: "./js/NutriSearch.js"}
     ).then(function(){
         // if turning on JSnoX, uncommment the following line
