@@ -28,7 +28,7 @@ function app(){
         // other stuff
         {url: "./bower_components/pace/pace.min.js"},
         {url: "./js/TemplateView.js"},
-        // {url: "./js/NutriSearch.js"},
+        {url: "./js/NutriSearch.js"},
         {url: "./js/leafLet.js"}
     ).then(function(){
         // if turning on JSnoX, uncommment the following line
@@ -39,7 +39,7 @@ function app(){
         document.querySelector("html").style.opacity = 1;
         // start app?
 
-        // new Backbone.NutriRouter();
+        new Backbone.NutriRouter();
     })
 
 }
