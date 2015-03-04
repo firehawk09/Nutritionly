@@ -20,11 +20,16 @@
         },
 
         routes: {
-            '*default': 'home'
+            '': 'home',
+            'details/*': 'details'
         },
 
         home: function(){
             this.collection.fetch()
+        },
+
+        details: function(){
+            $(document.body).append("Details has been called..");
         }
     });
 

@@ -2,6 +2,7 @@
 
         <div class="list">
             <a href="#id/<%= d.id %>">
+                <h4><%= d.get('name') %></h4>
                 <div class="location">
                     <h6><%= d.get('location').address %></h6>
                 </div>
@@ -13,3 +14,4 @@
             </a>
         </div>
     <% }) %>
+    <br>
