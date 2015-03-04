@@ -1,0 +1,15 @@
+    <% data.forEach(function(d){ %>
+
+        <div class="list">
+            <a href="#id/<%= d.id %>">
+                <div class="location">
+                    <h6><%= d.get('location').address %></h6>
+                </div>
+                <div class="url">
+                    <p>
+                        <a href="<%= d.get('url') %>"><%= d.get('url') %></a>
+                    </p>
+                </div>
+            </a>
+        </div>
+    <% }) %>

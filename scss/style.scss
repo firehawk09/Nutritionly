@@ -556,13 +556,30 @@
  * GENERAL
  */
 
+ //===========================================================
+ $backgroundColor: #85DB18;
+
 img {max-width:100%;}
 
 body {
     .container{
-        #map {
-            height: 180px;
+        .navigation {
+            height: 5rem;
+            background-color: $backgroundColor;
+            margin-bottom: 2em;
         }
+        .nav{
+            display: inline-block;
+            position: relative;
+            width: 4rem;
+            height: 2rem;
+        }
+        #map {
+            min-height: 180px;
+        }
+    }
+    .leftContainer{
+        margin-left: 5em;
     }
     transition: opacity .25s ease;
 }

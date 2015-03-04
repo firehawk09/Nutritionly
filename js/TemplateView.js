@@ -18,13 +18,13 @@
                 return x;
             },
             loadTemplate: function(name) {
-                return this.stream('./templates/' + name + '.html');
+                return this.stream('./Templates/' + name + '.html');
             },
             initialize: function(options) {
                 this.options = options || {};
 
                 this.model && this.model.on("change", this.render.bind(this));
-                this.collection && this.collection.on("add reset remove", this.render.bind(this));
+                this.collection && this.collection.on("sync", this.render.bind(this));
             },
             render: function() {
                 var self = this;
@@ -36,6 +36,10 @@
                 })
             }
         })
+    }
+
+    if(typeof module !== "object"){
+        (window.Parse || window.Backbone)["TemplateView"] = TemplateView(window.Parse || window.Backbone, _, $)
     }
 
 })(typeof module === "object" ? module.exports : window);
