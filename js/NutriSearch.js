@@ -9,7 +9,7 @@
         initialize: function() {
             console.log("initialized");
             this.collection = new Backbone.NutriScience();
-            this.collection.zip = 77006
+            this.collection.zip = 77365
             this.view = new Backbone.HealthyView({
                 collection: this.collection
             });
