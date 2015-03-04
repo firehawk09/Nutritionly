@@ -563,6 +563,7 @@ img {max-width:100%;}
 
 body {
     .container{
+        margin: auto 0;
         .navigation {
             height: 5rem;
             background-color: $backgroundColor;
@@ -580,7 +581,8 @@ body {
         }
     }
     .leftContainer{
-        margin-left: 5em;
+        margin-left: 15em;
+        display: inline-block;
     }
     transition: opacity .25s ease;
 }
