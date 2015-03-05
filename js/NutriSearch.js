@@ -38,7 +38,6 @@
     });
 
     // Views
-
     Backbone.HealthyView = Backbone.TemplateView.extend({
         el: ".container",
         view: "home",
@@ -47,12 +46,39 @@
         },
         hideForm: function(){
             this.el.querySelector("#submitForm").style.display = 'none'
+        },
+        submit: function(e) {
+            e.preventDefault()
+            this.options.user.set({
+                email: this.el.querySelector('input[name="email"]').value,
+                password1: this.el.querySelector('input[name="password"]').value,
+                password2: this.el.querySelector('input[name="password"]').value
+            })
+
+            var signedIn = null;
+            var signedUp = this.options.user.signUp()
+            var self = this
+            signedUp.then(function(data){
+                // remove login form?
+                self.hideForm()
+                // model should have auth token
+            })
+            signedUp.fail(function(){
+                signedIn = self.options.user.signIn()
+
+                signedIn.then(function(data){
+                    // remove login form?
+                    self.hideForm()
+                    // model should have auth token
+                })
+
+                signedIn.fail(function(){
+                    // shrug?
+                    alert("this is just going down hill fast.")
+                })
+            })
         }
-
-
-Backbone.logInView = Backbone.TemplateView.extend({
-
-});
+    });
 
     // Models
 
