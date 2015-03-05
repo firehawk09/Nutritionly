@@ -562,27 +562,54 @@
 img {max-width:100%;}
 
 body {
-    .container{
-        margin: auto 0;
-        .navigation {
-            height: 5rem;
-            background-color: $backgroundColor;
-            margin-bottom: 2em;
-            text-align: center;
+    text-align: center;
+    transition: opacity .25s ease;
+    .navigation {
+        background-color: $backgroundColor;
+        position: fixed;
+        text-align: center;
+        width: 100%;
+        margin-bottom: 1.5em;
+        h2 {
+            font-family: Helvetica;
         }
-        .nav{
+        form {
             display: inline-block;
             position: relative;
-            width: 4rem;
-            height: 2rem;
+            right: 0;
         }
-        #map {
-            min-height: 180px;
+        .navLink {
+            display: inline-block;
+            position: relative;
+            left: 0;
+            .nav {
+                display: inline-block;
+            }
         }
     }
-    .leftContainer{
-        margin-left: 15em;
-        display: inline-block;
+    .container {
+        position: relative;
+        top: 7em;
     }
-    transition: opacity .25s ease;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//================================================================

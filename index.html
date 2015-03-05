@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html style="opacity: 0;">
 
 <head>
@@ -7,15 +7,22 @@
 </head>
 
 <body>
-
-    <div class="container">
-        <div class="navigation">
-            <h2>Nutritionly</h2>
+    <div class="navigation">
+        <h2>Nutritionly</h2>
+        <div class="navLink">
             <div class="home nav">Home</div>
             <div class="about nav">About</div>
             <div class="logIn nav">Log In</div>
             <div class="contact nav">Contact</div>
         </div>
+        <form id="submitForm">
+            <input type="email" name="email" placeholder="Email">
+            <input type="password" name="password" placeholder="Password">
+            <input type="submit" name="submit">
+        </form>
+    </div>
+    <!---->
+    <div class="container">
         <div class="leftContainer"></div>
         <div class="rightContainer"></div>
         <div id="map"></div>
