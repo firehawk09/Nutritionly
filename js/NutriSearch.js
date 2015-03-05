@@ -1,62 +1,98 @@
 ;
 (function(exports) {
 
-        "use strict";
+    "use strict";
 
-        // Router
+    // Router
 
-        Backbone.NutriRouter = Backbone.Router.extend({
-                initialize: function() {
-                    console.log("initialized");
-                    this.collection = new Backbone.NutriScience();
-                    this.collection.zip = 77365
-                    this.view = new Backbone.HealthyView({
-                        collection: this.collection
-                    });
+    Backbone.NutriRouter = Backbone.Router.extend({
+        initialize: function() {
+            this.venues_collection = new Backbone.NutriScience();
+            this.venues_collection.zip = 77365
 
-                    this.container = document.querySelector('.leftContainer');
+            this.user = new Backbone.UserModelForSignup()
 
-                    Backbone.history.start();
-                },
+            // this.reviews_collection = new Backbone.ReviewsCollection();
+            // this.reviews_collection.user = this.user
 
-                routes: {
-                    '': 'home',
-                    '/logIn': 'logIn',
-                    '/#id/:*': 'details',
-                    "search/:query": "search"
-                },
+            // testing new Review model
+            // this.reviews_collection.create({})
 
-                home: function() {
-                    this.collection.fetch()
-                }
+            this.view = new Backbone.HealthyView({
+                collection: this.venues_collection,
+                user: this.user
+            });
 
-                logIn: function(){
-                    this.collection.create()
-                },
+            Backbone.history.start();
+        },
 
-                // details: function(){
+        routes: {
+            '/:id/': 'details',
+            "search/:query": "search",
+            "*default": "home"
+        },
 
-                // },
-
-                // search: function(keywords) {
-                //     this.draw(keywords);
-                // }
-        });
+        home: function() {
+            this.venues_collection.fetch()
+        }
+    });
 
     // Views
 
     Backbone.HealthyView = Backbone.TemplateView.extend({
-        el: ".leftContainer",
-        view: "listTemp",
+        el: ".container",
+        view: "home",
         events: {
             "submit #submitForm": "submit"
         },
-        submit: function(e){
-                    this.collection.create();
+        hideForm: function(){
+            this.el.querySelector("#submitForm").style.display = 'none'
         }
-    });
+
+
+Backbone.logInView = Backbone.TemplateView.extend({
+
+});
 
     // Models
+
+    Backbone.UserModelForSignup = Backbone.Model.extend({
+        validate: function(attrs, options) {
+            if (attrs.password1 !== attrs.password2)
+                return "Passwords must match"
+        },
+        signUp: function() {
+            var self = this;
+            var url = [
+                    "https://nutritions.herokuapp.com/api/v1/registrations?email=",
+                    this.get('email'),
+                    "&password=",
+                    this.get('password1'),
+                    "&password_confirmation=",
+                    this.get('password2')
+                ].join('')
+
+            return $.post(url).then(function(data){
+                self.set(data)
+                return data;
+            })
+        },
+        signIn: function() {
+            var url = [
+                    "https://nutritions.herokuapp.com/api/v1/signin?email=",
+                    this.get('email'),
+                    "&password=",
+                    this.get('password1')
+                ].join('')
+
+            var self = this
+
+            return $.post(url).then(function(data){
+                self.set(data)
+                return data;
+            })
+        }
+    })
 
     Backbone.NutriModel = Backbone.Model.extend({
         defaults: {
@@ -69,6 +105,22 @@
             ].join('')
         }
     });
+
+    Backbone.Review = Backbone.Model.extend({
+        url: function(){
+            return [
+                "https://nutritions.herokuapp.com/api/v1/reviews?",
+                "venue_id=",
+                this.get("venue_id"),
+                "&body=",
+                this.get('body'),
+                "&rating=",
+                this.get('rating'),
+                "&auth_token=",
+                this.collection.user.get("auth_token")
+            ].join('')
+        }
+    })
 
     // Collections
 
@@ -84,6 +136,15 @@
             return data.venues
         }
     });
+
+    Backbone.ReviewsCollection = Backbone.Collection.extend({
+        model: Backbone.Review,
+        url: function(){
+            return [
+                "https://nutritions.herokuapp.com/api/v1/reviews/1"
+            ].join('')
+        }
+    })
 
 
 })(typeof module === 'object' ? module.exports : window);
