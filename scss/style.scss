@@ -591,6 +591,10 @@ body {
     .container {
         position: relative;
         top: 7em;
+        .results {
+        position: absolute;
+        margin: auto 0;
+        }
     }
 }
 

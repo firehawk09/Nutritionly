@@ -7,7 +7,7 @@
 
     Backbone.NutriRouter = Backbone.Router.extend({
         initialize: function() {
-            this.venues_collection = new Backbone.NutriScience();
+            this.venues_collection = new Backbone.List_Collection();
             this.venues_collection.zip = 77365
 
             this.user = new Backbone.UserModelForSignup()
@@ -27,13 +27,22 @@
         },
 
         routes: {
+            '*default': 'home',
+            '/logIn': 'signIn',
             '/:id/': 'details',
-            "search/:query": "search",
-            "*default": "home"
+            'search/:query': 'search',
         },
 
         home: function() {
             this.venues_collection.fetch()
+        },
+        signIn: function() {
+        },
+        details: function() {
+            this.venues_collection.fetch()
+        },
+        search: function() {
+            this.reviews_collection.fetch()
         }
     });
 
@@ -41,6 +50,47 @@
     Backbone.HealthyView = Backbone.TemplateView.extend({
         el: ".container",
         view: "home",
+        events: {
+            "submit #submitForm": "submit"
+        },
+        hideForm: function(){
+            this.el.querySelector("#submitForm").style.display = 'none'
+        },
+        submit: function(e) {
+            e.preventDefault()
+            this.options.user.set({
+                email: this.el.querySelector('input[name="email"]').value,
+                password1: this.el.querySelector('input[name="password"]').value,
+                password2: this.el.querySelector('input[name="password"]').value
+            })
+
+            var signedIn = null;
+            var signedUp = this.options.user.signUp()
+            var self = this
+            signedUp.then(function(data){
+                // remove login form?
+                self.hideForm()
+                // model should have auth token
+            })
+            signedUp.fail(function(){
+                signedIn = self.options.user.signIn()
+
+                signedIn.then(function(data){
+                    // remove login form?
+                    self.hideForm()
+                    // model should have auth token
+                })
+
+                signedIn.fail(function(){
+                    // shrug?
+                    alert("this is just going down hill fast.")
+                })
+            })
+        }
+    });
+    Backbone.DetailsView = Backbone.TemplateView.extend({
+        el: ".container",
+        view: "details",
         events: {
             "submit #submitForm": "submit"
         },
@@ -120,15 +170,9 @@
         }
     })
 
-    Backbone.NutriModel = Backbone.Model.extend({
+    Backbone.Venue_List = Backbone.Model.extend({
         defaults: {
             zip: 77365
-        },
-        url: function() {
-            return [
-                "https://nutritions.herokuapp.com/api/v1/venues",
-                this.get('zip') ? '?near=' + this.get('zip') : ''
-            ].join('')
         }
     });
 
@@ -150,8 +194,8 @@
 
     // Collections
 
-    Backbone.NutriScience = Backbone.Collection.extend({
-        model: Backbone.NutriModel,
+    Backbone.List_Collection = Backbone.Collection.extend({
+        model: Backbone.Venue_List,
         url: function() {
             return [
                 "https://nutritions.herokuapp.com/api/v1/venues",
@@ -162,6 +206,7 @@
             return data.venues
         }
     });
+
 
     Backbone.ReviewsCollection = Backbone.Collection.extend({
         model: Backbone.Review,

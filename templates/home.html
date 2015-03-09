@@ -1,19 +1,26 @@
-<div class="navigation">
+<header class="navigation">
     <h2>Nutritionly</h2>
     <div class="navLink">
-        <div class="home nav">Home</div>
-        <div class="about nav">About</div>
-        <div class="logIn nav">Log In</div>
-        <div class="contact nav">Contact</div>
+        <a href="../home">Home</a>
+        <a href="../About">About</a>
+        <a href="../logIn">Log In</a>
+        <a href="../contact">Contact</a>
     </div>
-    <form id="submitForm">
-        <input type="email" name="email" placeholder="Email">
-        <input type="password" name="password" placeholder="Password">
-        <input type="submit" name="submit">
-    </form>
-</div>
-
-<div class="leftContainer">
+    <div class="search">
+        <form id="searchForm">
+            <input type="text" name="search" placeholder="Find Salad's, Grilled Chicken, Juice, ...">
+            <input type="text" name="location" placeholder="Near Houston, San Diego, New York, ...">
+            <input type="submit" name="submit">
+        </form>
+        <form id="signInForm">
+            <!-- <h4>Sign In</h4> -->
+            <input type="email" name="email" placeholder="Email">
+            <input type="password" name="password1" placeholder="Password">
+            <input type="submit" name="submit">
+        </form>
+    </div>
+</header>
+<div class="results">
     <% data.forEach(function(d){ %>
 
         <div class="list">
@@ -24,7 +31,9 @@
                 </div>
                 <div class="url">
                     <p>
-                        <a href="<%= d.get('url') %>"><%= d.get('url') %></a>
+                        <a href="<%= d.get('url') %>">
+                            <%=d .get( 'url') %>
+                        </a>
                     </p>
                 </div>
             </a>
@@ -32,9 +41,9 @@
 
         <br>
 
-    <% }) %>
+        <% }) %>
 
 </div>
 
-<div class="rightContainer"></div>
+<div class="sideView"></div>
 <div id="map"></div>
