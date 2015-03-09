@@ -18,7 +18,7 @@
             // testing new Review model
             // this.reviews_collection.create({})
 
-            this.view = new Backbone.HealthyView({
+            this.view = new Backbone.HomeView({
                 collection: this.venues_collection,
                 user: this.user
             });
@@ -47,7 +47,7 @@
     });
 
     // Views
-    Backbone.HealthyView = Backbone.TemplateView.extend({
+    Backbone.HomeView = Backbone.TemplateView.extend({
         el: ".container",
         view: "home",
         events: {
@@ -90,7 +90,7 @@
     });
     Backbone.DetailsView = Backbone.TemplateView.extend({
         el: ".container",
-        view: "details",
+        view: "register",
         events: {
             "submit #submitForm": "submit"
         },
